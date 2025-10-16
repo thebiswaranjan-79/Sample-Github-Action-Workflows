@@ -1,0 +1,17 @@
+name : "Hello world workflows"
+# This workflow will run a "Hello world" script on every push to the master branch
+# You can modify the branch name to match your default branch
+
+# Control when the workflow will run. Trigger the workflow on push to the master branch
+on:
+    push:
+        branches:
+            - master
+            - production
+
+jobs:
+    hello_world:
+        runs-on: ubuntu-latest
+        steps:
+            - name: "Print Hello World"
+              run: echo "Hello World!"
