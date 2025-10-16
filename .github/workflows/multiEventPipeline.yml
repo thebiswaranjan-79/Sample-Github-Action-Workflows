@@ -5,11 +5,22 @@ on:
         branches:  # Specify the branches to monitor
         - master # Branch name
         - test
+    
+    pull_request: # Event : Whenever there is a pull request to the master branch
+        branches:  # Specify the branches to monitor
+        - master # Branch name
 
 jobs:
     on-push: # Job name
+        if: github.event_name == 'push' # Condition to run this job only on push events
         runs-on: ubuntu-latest # Runner type
         steps: # Steps to be executed as part of the job
-            - name: "Running on Master Push" # Step name
-              run: echo "This job runs on push event to master branch" # Command to be executed
+            - name: "Running on Push" # Step name
+              run: echo "This job runs on push event to master/test branch" # Command to be executed
 
+    on-pull-request: # Job name
+        if: github.event_name == 'pull_request' # Condition to run this job only on pull request events
+        runs-on: ubuntu-latest # Runner type
+        steps: # Steps to be executed as part of the job
+            - name: "Running on Pull Request" # Step name
+              run: echo "This job runs on pull request event to master/test branch" # Command to be executed
