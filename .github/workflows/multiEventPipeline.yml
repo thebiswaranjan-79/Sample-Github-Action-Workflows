@@ -1,0 +1,43 @@
+name: "Multi Event Pipeline Workflow" # Name of the Pipeline
+
+on:
+    push: # Event : Whenever there is a push to the master branch
+        branches:  # Specify the branches to monitor
+        - master # Branch name
+        - test
+    
+    pull_request: # Event : Whenever there is a pull request to the master branch
+        branches:  # Specify the branches to monitor
+        - master # Branch name
+    
+    workflow_dispatch: # Event : Manual trigger of the workflow from the Actions tab in GitHub
+
+jobs:
+    on-push: # Job name
+        if: github.event_name == 'push' # Condition to run this job only on push events
+        runs-on: ubuntu-latest # Runner type
+        steps: # Steps to be executed as part of the job
+            - name: "Running on Push" # Step name
+              run: echo "This job runs on push event to master/test branch" # Command to be executed
+
+    on-pull-request: # Job name
+        if: github.event_name == 'pull_request' # Condition to run this job only on pull request events
+        runs-on: ubuntu-latest # Runner type
+        steps: # Steps to be executed as part of the job
+            - name: "Running on Pull Request" # Step name
+              run: echo "This job runs on pull request event to master/test branch" # Command to be executed
+    
+    on-workflow-dispatch: # Job name
+        if: github.event_name == 'workflow_dispatch' # Condition to run this job only on manual trigger events
+        runs-on: ubuntu-latest # Runner type
+        steps: # Steps to be executed as part of the job
+            - name: "Running on Manual Trigger" # Step name
+              run: echo "This job runs on manual trigger from Actions tab" # Command to be executed
+    
+
+    on-pull-request-closed: # Job name
+        if: github.event_name == 'pull_request' && github.event.action == 'closed' # Condition to run this job only on pull request closed events
+        runs-on: ubuntu-latest # Runner type
+        steps: # Steps to be executed as part of the job
+            - name: "Running on Pull Request Closed" # Step name
+              run: echo "This job runs when a pull request is closed" # Command to be executed
