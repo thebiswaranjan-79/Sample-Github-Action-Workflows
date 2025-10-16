@@ -4,6 +4,7 @@ on:
     push: # Event : Whenever there is a push to the master branch
         branches:  # Specify the branches to monitor
         - master # Branch name
+        - test
 
 jobs:
     on-push: # Job name
